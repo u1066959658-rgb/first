@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 8 Computer Science Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 16px;
+      line-height: 1.5;
+      background: #f4f7fb;
+      color: #1a1a1a;
+    }
+    header, .card {
+      background: #fff;
+      border: 1px solid #d9e2ec;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 8px; }
+    .meta { color: #445; font-size: 15px; }
+    ol { padding-left: 22px; }
+    li { margin-bottom: 18px; }
+    label { display: block; margin: 4px 0; }
+    button {
+      background: #1f6feb;
+      color: #fff;
+      border: 0;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #1558c0; }
+    #result {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Grade 8 Computer Science Test</h1>
+    <p class="meta">Time: 15 minutes &nbsp;|&nbsp; 10 questions &nbsp;|&nbsp; Choose one answer for each question.</p>
+    <p>This is a practice test about computers, the Internet, and simple algorithms.</p>
+  </header>
+
+  <form class="card" id="quiz" onsubmit="return showScore(event)">
+    <ol>
+      <li>
+        <p><b>What is a bit?</b></p>
+        <label><input type="radio" name="q1" value="0"> A picture on the screen</label>
+        <label><input type="radio" name="q1" value="1"> The smallest unit of data: 0 or 1</label>
+        <label><input type="radio" name="q1" value="0"> A type of computer mouse</label>
+      </li>
+      <li>
+        <p><b>How many bits are in 1 byte?</b></p>
+        <label><input type="radio" name="q2" value="0"> 2</label>
+        <label><input type="radio" name="q2" value="0"> 4</label>
+        <label><input type="radio" name="q2" value="1"> 8</label>
+      </li>
+      <li>
+        <p><b>Which device is input hardware?</b></p>
+        <label><input type="radio" name="q3" value="1"> Keyboard</label>
+        <label><input type="radio" name="q3" value="0"> Monitor</label>
+        <label><input type="radio" name="q3" value="0"> Printer</label>
+      </li>
+      <li>
+        <p><b>What does CPU mean?</b></p>
+        <label><input type="radio" name="q4" value="0"> Computer Personal Unit</label>
+        <label><input type="radio" name="q4" value="1"> Central Processing Unit</label>
+        <label><input type="radio" name="q4" value="0"> Copy Paste Utility</label>
+      </li>
+      <li>
+        <p><b>RAM is used to:</b></p>
+        <label><input type="radio" name="q5" value="1"> Temporarily store data while the computer is working</label>
+        <label><input type="radio" name="q5" value="0"> Print documents</label>
+        <label><input type="radio" name="q5" value="0"> Connect to Wi-Fi</label>
+      </li>
+      <li>
+        <p><b>HTML is used to:</b></p>
+        <label><input type="radio" name="q6" value="0"> Draw 3D games only</label>
+        <label><input type="radio" name="q6" value="1"> Create the structure of web pages</label>
+        <label><input type="radio" name="q6" value="0"> Charge the battery</label>
+      </li>
+      <li>
+        <p><b>An algorithm is:</b></p>
+        <label><input type="radio" name="q7" value="1"> A step-by-step plan to solve a problem</label>
+        <label><input type="radio" name="q7" value="0"> A computer virus</label>
+        <label><input type="radio" name="q7" value="0"> A type of keyboard</label>
+      </li>
+      <li>
+        <p><b>Which number is binary?</b></p>
+        <label><input type="radio" name="q8" value="0"> 29</label>
+        <label><input type="radio" name="q8" value="1"> 1011</label>
+        <label><input type="radio" name="q8" value="0"> 7A</label>
+      </li>
+      <li>
+        <p><b>A strong password should:</b></p>
+        <label><input type="radio" name="q9" value="0"> Be your first name only</label>
+        <label><input type="radio" name="q9" value="0"> Be written on the monitor</label>
+        <label><input type="radio" name="q9" value="1"> Be long and hard to guess</label>
+      </li>
+      <li>
+        <p><b>The Internet is:</b></p>
+        <label><input type="radio" name="q10" value="1"> A global network of connected computers</label>
+        <label><input type="radio" name="q10" value="0"> Only one website</label>
+        <label><input type="radio" name="q10" value="0"> A computer program for drawing</label>
+      </li>
+    </ol>
+
+    <p>
+      <label>Your name: <input type="text" id="student" required></label>
+    </p>
+    <button type="submit">Check my answers</button>
+    <div id="result"></div>
+  </form>
+
+  <script>
+    function showScore(event) {
+      event.preventDefault();
+      var score = 0;
+      for (var i = 1; i <= 10; i++) {
+        var chosen = document.querySelector('input[name="q' + i + '"]:checked');
+        if (!chosen) {
+          alert('Please answer all questions.');
+          return false;
+        }
+        score += Number(chosen.value);
+      }
+      var name = document.getElementById('student').value;
+      var box = document.getElementById('result');
+      box.style.display = 'block';
+      box.innerHTML = '<b>' + name + '</b>, your score is <b>' + score + ' / 10</b>.';
+      return false;
+    }
+  </script>
+</body>
+</html>
