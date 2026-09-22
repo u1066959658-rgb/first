@@ -24,7 +24,9 @@
     .meta { color: #445; font-size: 15px; }
     ol { padding-left: 22px; }
     li { margin-bottom: 18px; }
-    label { display: block; margin: 4px 0; }
+    label { display: block; margin: 4px 0; padding: 4px 8px; border-radius: 4px; }
+    label.correct { background: #c8e6c9; color: #1b5e20; }
+    label.wrong { background: #ffcdd2; color: #b71c1c; }
     button {
       background: #1f6feb;
       color: #fff;
@@ -132,6 +134,16 @@
           return false;
         }
         score += Number(chosen.value);
+      }
+      var labels = document.querySelectorAll('#quiz ol label');
+      for (var j = 0; j < labels.length; j++) {
+        labels[j].classList.remove('correct', 'wrong');
+        var input = labels[j].querySelector('input');
+        if (input.value === '1') {
+          labels[j].classList.add('correct');
+        } else if (input.checked) {
+          labels[j].classList.add('wrong');
+        }
       }
       var name = document.getElementById('student').value;
       var box = document.getElementById('result');
