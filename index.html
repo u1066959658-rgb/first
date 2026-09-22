@@ -36,13 +36,18 @@
       cursor: pointer;
     }
     button:hover { background: #1558c0; }
+    button:disabled { background: #9aaac0; cursor: default; }
     #result {
       display: none;
-      margin-top: 16px;
-      padding: 12px;
+      margin-top: 20px;
+      padding: 16px;
       background: #e8f5e9;
-      border: 1px solid #a5d6a7;
+      border: 2px solid #2e7d32;
     }
+    #result h2 { margin: 0 0 8px; }
+    #result .ok { color: #1b5e20; }
+    #result .bad { color: #b71c1c; }
+    #result ul { margin: 8px 0 0; padding-left: 20px; }
   </style>
 </head>
 <body>
@@ -52,104 +57,151 @@
     <p>This is a practice test about computers, the Internet, and simple algorithms.</p>
   </header>
 
-  <form class="card" id="quiz" onsubmit="return showScore(event)">
+  <form class="card" id="quiz">
     <ol>
       <li>
         <p><b>What is a bit?</b></p>
         <label><input type="radio" name="q1" value="0"> A picture on the screen</label>
         <label><input type="radio" name="q1" value="1"> The smallest unit of data: 0 or 1</label>
-        <label><input type="radio" name="q1" value="0"> A type of computer mouse</label>
+        <label><input type="radio" name="q1" value="2"> A type of computer mouse</label>
       </li>
       <li>
         <p><b>How many bits are in 1 byte?</b></p>
         <label><input type="radio" name="q2" value="0"> 2</label>
-        <label><input type="radio" name="q2" value="0"> 4</label>
-        <label><input type="radio" name="q2" value="1"> 8</label>
+        <label><input type="radio" name="q2" value="1"> 4</label>
+        <label><input type="radio" name="q2" value="2"> 8</label>
       </li>
       <li>
         <p><b>Which device is input hardware?</b></p>
-        <label><input type="radio" name="q3" value="1"> Keyboard</label>
-        <label><input type="radio" name="q3" value="0"> Monitor</label>
-        <label><input type="radio" name="q3" value="0"> Printer</label>
+        <label><input type="radio" name="q3" value="0"> Keyboard</label>
+        <label><input type="radio" name="q3" value="1"> Monitor</label>
+        <label><input type="radio" name="q3" value="2"> Printer</label>
       </li>
       <li>
         <p><b>What does CPU mean?</b></p>
         <label><input type="radio" name="q4" value="0"> Computer Personal Unit</label>
         <label><input type="radio" name="q4" value="1"> Central Processing Unit</label>
-        <label><input type="radio" name="q4" value="0"> Copy Paste Utility</label>
+        <label><input type="radio" name="q4" value="2"> Copy Paste Utility</label>
       </li>
       <li>
         <p><b>RAM is used to:</b></p>
-        <label><input type="radio" name="q5" value="1"> Temporarily store data while the computer is working</label>
-        <label><input type="radio" name="q5" value="0"> Print documents</label>
-        <label><input type="radio" name="q5" value="0"> Connect to Wi-Fi</label>
+        <label><input type="radio" name="q5" value="0"> Temporarily store data while the computer is working</label>
+        <label><input type="radio" name="q5" value="1"> Print documents</label>
+        <label><input type="radio" name="q5" value="2"> Connect to Wi-Fi</label>
       </li>
       <li>
         <p><b>HTML is used to:</b></p>
         <label><input type="radio" name="q6" value="0"> Draw 3D games only</label>
         <label><input type="radio" name="q6" value="1"> Create the structure of web pages</label>
-        <label><input type="radio" name="q6" value="0"> Charge the battery</label>
+        <label><input type="radio" name="q6" value="2"> Charge the battery</label>
       </li>
       <li>
         <p><b>An algorithm is:</b></p>
-        <label><input type="radio" name="q7" value="1"> A step-by-step plan to solve a problem</label>
-        <label><input type="radio" name="q7" value="0"> A computer virus</label>
-        <label><input type="radio" name="q7" value="0"> A type of keyboard</label>
+        <label><input type="radio" name="q7" value="0"> A step-by-step plan to solve a problem</label>
+        <label><input type="radio" name="q7" value="1"> A computer virus</label>
+        <label><input type="radio" name="q7" value="2"> A type of keyboard</label>
       </li>
       <li>
         <p><b>Which number is binary?</b></p>
         <label><input type="radio" name="q8" value="0"> 29</label>
         <label><input type="radio" name="q8" value="1"> 1011</label>
-        <label><input type="radio" name="q8" value="0"> 7A</label>
+        <label><input type="radio" name="q8" value="2"> 7A</label>
       </li>
       <li>
         <p><b>A strong password should:</b></p>
         <label><input type="radio" name="q9" value="0"> Be your first name only</label>
-        <label><input type="radio" name="q9" value="0"> Be written on the monitor</label>
-        <label><input type="radio" name="q9" value="1"> Be long and hard to guess</label>
+        <label><input type="radio" name="q9" value="1"> Be written on the monitor</label>
+        <label><input type="radio" name="q9" value="2"> Be long and hard to guess</label>
       </li>
       <li>
         <p><b>The Internet is:</b></p>
-        <label><input type="radio" name="q10" value="1"> A global network of connected computers</label>
-        <label><input type="radio" name="q10" value="0"> Only one website</label>
-        <label><input type="radio" name="q10" value="0"> A computer program for drawing</label>
+        <label><input type="radio" name="q10" value="0"> A global network of connected computers</label>
+        <label><input type="radio" name="q10" value="1"> Only one website</label>
+        <label><input type="radio" name="q10" value="2"> A computer program for drawing</label>
       </li>
     </ol>
 
     <p>
       <label>Your name: <input type="text" id="student" required></label>
     </p>
-    <button type="submit">Check my answers</button>
+    <button type="submit" id="check">Check my answers</button>
     <div id="result"></div>
   </form>
 
   <script>
-    function showScore(event) {
+    document.getElementById('quiz').addEventListener('submit', function (event) {
       event.preventDefault();
-      var score = 0;
+      var answers = [];
       for (var i = 1; i <= 10; i++) {
         var chosen = document.querySelector('input[name="q' + i + '"]:checked');
         if (!chosen) {
           alert('Please answer all questions.');
-          return false;
+          return;
         }
-        score += Number(chosen.value);
+        answers.push(Number(chosen.value));
       }
-      var labels = document.querySelectorAll('#quiz ol label');
-      for (var j = 0; j < labels.length; j++) {
-        labels[j].classList.remove('correct', 'wrong');
-        var input = labels[j].querySelector('input');
-        if (input.value === '1') {
-          labels[j].classList.add('correct');
-        } else if (input.checked) {
-          labels[j].classList.add('wrong');
-        }
-      }
+
       var name = document.getElementById('student').value;
+      var button = document.getElementById('check');
+      button.disabled = true;
+
+      fetch('/api/score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, answers: answers })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.error) {
+            alert(data.error);
+            button.disabled = false;
+            return;
+          }
+          paint(data.details);
+          showResult(data);
+        })
+        .catch(function () {
+          alert('Could not check answers. Try again.');
+          button.disabled = false;
+        });
+    });
+
+    function paint(details) {
+      for (var i = 0; i < details.length; i++) {
+        var item = details[i];
+        var inputs = document.querySelectorAll('input[name="q' + item.question + '"]');
+        for (var k = 0; k < inputs.length; k++) {
+          var label = inputs[k].parentNode;
+          label.classList.remove('correct', 'wrong');
+          if (Number(inputs[k].value) === item.correctIndex) {
+            label.classList.add('correct');
+          } else if (inputs[k].checked) {
+            label.classList.add('wrong');
+          }
+        }
+      }
+    }
+
+    function showResult(data) {
+      var lines = '';
+      for (var i = 0; i < data.details.length; i++) {
+        var item = data.details[i];
+        if (item.correct) {
+          lines += '<li class="ok">Question ' + item.question + ': correct</li>';
+        } else {
+          lines += '<li class="bad">Question ' + item.question + ': incorrect</li>';
+        }
+      }
       var box = document.getElementById('result');
       box.style.display = 'block';
-      box.innerHTML = '<b>' + name + '</b>, your score is <b>' + score + ' / 10</b>.';
-      return false;
+      box.innerHTML =
+        '<h2>Test result</h2>' +
+        '<p><b>Student:</b> ' + data.name + '</p>' +
+        '<p><b>Score:</b> ' + data.score + ' / ' + data.total + ' (' + data.percent + '%)</p>' +
+        '<p><b>Correct:</b> ' + data.score + ' &nbsp; <b>Incorrect:</b> ' + (data.total - data.score) + '</p>' +
+        '<p>' + data.comment + '</p>' +
+        '<ul>' + lines + '</ul>';
+      box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   </script>
 </body>
